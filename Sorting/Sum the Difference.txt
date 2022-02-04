@@ -1,0 +1,68 @@
+"""
+https://www.scaler.com/academy/mentee-dashboard/class/13619/assignment/problems/453?navref=cl_tt_lst_sl
+
+Problem Description
+
+Given an integer array A of size N.
+You have to find all possible non-empty subsequence of the array of numbers and then, for each subsequence, find the difference between the largest and smallest numbers in that subsequence Then add up all the differences to get the number.
+
+As the number may be large, output the number modulo 1e9 + 7 (1000000007).
+
+NOTE: Subsequence can be non-contiguous.
+
+
+
+Problem Constraints
+
+1 <= N <= 10000
+
+1<= A[i] <=1000
+
+
+
+Input Format
+
+First argument is an integer array A.
+
+
+
+Output Format
+
+Return an integer denoting the output.
+
+
+
+Example Input
+
+Input 1:
+
+A = [1, 2]
+Input 2:
+
+A = [1]
+
+
+Example Output
+
+Output 1:
+
+ 1
+Output 2:
+
+ 0
+"""
+
+
+class Solution:
+	# @param A : list of integers
+	# @return an integer
+	def solve(self, A):
+        A.sort()
+        ans = 0
+        mod = 10**9+7
+        for i in range(0,len(A)):
+            maxc = 2**(i)
+            minc = 2**(len(A)-i-1)
+            val = (maxc%mod - minc%mod)%mod
+            ans = ans + ((A[i]%mod)*(val%mod))%mod
+        return ans%mod

@@ -1,0 +1,45 @@
+"""
+You are given a string A where each character is either a '+' or a '-'. Here, '+' means increment the current variable and '-' means decrement the current variable. Lets assume that we always start with current variable as 0.
+
+So, for example if A = '++-+----', then the values of the variable will be [0, 1, 2, 1, 2, 1, 0, -1, -2] Explanation : Variable = 0 in the beginning. After the first '+', Variable becomes 1. With second '+', Variable becomes 2. With the third character as '-', Variable becomes 1 and so on.
+
+In the above example, the maximum value variable takes is 2 and the minimum value it takes is -1. The range of the variable is the difference between the max and min value it takes, which in this case will be 2 - (-1) = 3.
+
+You have to find a subsequence of the given string A which maximizes the range of the variable. Return the integer corresponding to the max range possible.
+
+Example :
+
+Input : "+++++", Output : 5 
+Input : "++-+----", Output : 5 ( The subsequence as "++-----" )
+Constraints :
+
+  1 <= length(A) <= 2500
+
+"""
+
+class Solution:
+    # @param A : string
+    # @return an integer
+    def solve(self, A):
+        val = [0]
+        max_val = 0
+        min_val = 0
+        """
+        If we take all + and - together , ans range would be very small
+        rather take + together and - together to create big range
+
+
+        """
+
+
+        for i in range(0,len(A)):
+            if(A[i] == '+'):
+                max_val +=1
+                
+                val.append(val[i]+1)
+            else:
+                val.append(val[i]-1)
+                min_val +=1
+        
+        return max(max_val,min_val)
+                

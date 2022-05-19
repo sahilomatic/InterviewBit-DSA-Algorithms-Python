@@ -1,0 +1,122 @@
+"""
+Q1. Single Element in a Sorted Array
+
+Problem Description
+Given a sorted array of integers A where every element appears twice except for one element which appears once, find and return this single element that appears only once.
+
+NOTE: Users are expected to solve this in O(log(N)) time.
+
+
+
+Problem Constraints
+1 <= |A| <= 100000
+
+1 <= A[i] <= 10^9
+
+
+
+Input Format
+The only argument given is the integer array A.
+
+
+
+Output Format
+Return the single element that appears only once.
+
+
+
+Example Input
+Input 1:
+
+A = [1, 1, 7]
+Input 2:
+
+A = [2, 3, 3]
+
+
+Example Output
+Output 1:
+
+ 7
+Output 2:
+
+ 2
+
+
+Example Explanation
+Explanation 1:
+
+ 7 appears once
+Explanation 2:
+
+ 2 appears once
+
+"""
+
+
+class Solution:
+    # @param A : list of integers
+    # @return an integer
+    
+    
+    # if array was not sorted then we can use XOR ^ operation to find unique lement , TC = O(n)
+    # since array is sorted we can use binary search
+    # observation is , if all elements were twice then array would have even length
+    # thus unique elemnt is acting as a wall , with array before it has starting element at even index
+    # and array after unique element has starting index at odd position
+
+
+    def solve(self, A):
+        l,r = 0 , len(A)-1
+        if(len(A)==1):
+            return A[0]
+        
+        if(A[0]!=A[1]):
+            return A[0]
+
+        if(A[len(A)-1]!=A[len(A)-2]):
+            return A[len(A)-1]
+        while(l<=r):
+            m= l + (r-l)//2
+            if(l==r):
+                return A[l]
+            if(A[m]!=A[m-1] and A[m]!=A[m+1]):
+                return A[m]
+            
+            if(A[m-1]==A[m]):
+                m = m-1
+            if(m%2==0):
+                # then it is left side of array
+                l = m +2
+            
+            else:
+                r = m-1
+        return -1
+                
+
+    
+    """def solve(self, A):
+        l,r = 0, len(A)-1
+
+        if(A[0]!=A[1]):
+            return A[0]
+        elif(A[r]!=A[r-1]):
+            return A[r]
+        while(l<=r):
+            m = l + (r-l)//2
+            if(l==r):
+                return A[l]
+            if(A[m]!=A[m-1] and A[m]!=A[m+1]):
+                return A[m]
+            elif(A[m]==A[m-1]):
+                m = m-1
+
+            if(m%2==0):
+                l = m + 2
+            else:
+                r = m -1
+        return -1
+
+
+            
+        """
